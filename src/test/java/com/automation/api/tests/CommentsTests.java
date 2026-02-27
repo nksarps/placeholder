@@ -1,8 +1,8 @@
 package com.automation.api.tests;
 
 import com.automation.api.base.SetUp;
-import com.automation.api.config.Endpoints;
-import com.automation.api.config.TestData;
+import com.automation.api.utils.Endpoints;
+import com.automation.api.utils.TestData;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
