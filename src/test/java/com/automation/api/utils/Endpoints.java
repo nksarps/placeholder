@@ -1,4 +1,4 @@
-package com.automation.api.config;
+package com.automation.api.utils;
 
 /**
  * Central place for API endpoint paths and small helpers to build path/query strings.

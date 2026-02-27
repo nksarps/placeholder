@@ -1,4 +1,4 @@
-package com.automation.api.config;
+package com.automation.api.utils;
 
 /**
  * Centralized test data (IDs and other reusable parameters) for API tests.
