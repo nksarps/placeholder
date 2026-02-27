@@ -58,9 +58,9 @@ public class SetUp {
                 .expectContentType(ApiConfig.getContentType())
                 .build();
 
-        // Set as default specifications
+        // Set request specification as default
+        // Note: NOT setting responseSpec as default to avoid conflicts with POST/PUT requests
         RestAssured.requestSpecification = requestSpec;
-        RestAssured.responseSpecification = responseSpec;
     }
 
     /**
