@@ -144,7 +144,7 @@ placeholder
 
 # Build Status Badge
 
-![Build Status](https://github.com/<user>/<repo>/actions/workflows/ci.yml/badge.svg)
+![Build Status](https://github.com/nksarps/placeholder/actions/workflows/ci.yml/badge.svg)
 
 # Configuration
 
