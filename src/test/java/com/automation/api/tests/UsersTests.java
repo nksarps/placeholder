@@ -144,14 +144,14 @@ public class UsersTests extends SetUp {
                 .body("website", equalTo(TestData.UPDATED_USER_WEBSITE));
     }
 
-//    @Test
-//    @DisplayName("DELETE /users/1 - should delete user and return status 200 or 204")
-//    public void testDeleteUser() {
-//        given()
-//                .spec(requestSpec)
-//        .when()
-//                .delete(Endpoints.userById(TestData.DEFAULT_USER_ID))
-//        .then()
-//                .statusCode(anyOf(equalTo(200), equalTo(204)));
-//    }
+    @Test
+    @DisplayName("DELETE /users/1 - should delete user and return status 200 or 204")
+    public void testDeleteUser() {
+        given()
+                .spec(requestSpec)
+        .when()
+                .delete(Endpoints.userById(TestData.DEFAULT_USER_ID))
+        .then()
+                .statusCode(anyOf(equalTo(200), equalTo(204)));
+    }
 }
