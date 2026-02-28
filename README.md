@@ -1,6 +1,6 @@
-# Project Title
+# Automated API Tests for JSONPlaceholder API
 
-Placeholder
+
 
 # Project Overview
 
