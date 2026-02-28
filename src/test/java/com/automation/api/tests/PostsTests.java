@@ -100,6 +100,20 @@ public class PostsTests extends SetUp {
     }
 
     @Test
+    @DisplayName("GET /posts - should return all posts with headers validation")
+    public void testGetAllPostsWithHeaders() {
+        given()
+                .spec(requestSpec)
+        .when()
+                .get(Endpoints.POSTS)
+        .then()
+                .statusCode(200)
+                .header("Content-Type", equalTo("application/json; charset=utf-8"))
+                .header("Cache-Control", notNullValue())
+                .body("size()", greaterThan(0));
+    }
+
+    @Test
     @DisplayName("POST /posts - should create a new post with status 201")
     public void testCreatePost() {
         given()

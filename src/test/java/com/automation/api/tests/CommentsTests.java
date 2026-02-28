@@ -28,6 +28,20 @@ public class CommentsTests extends SetUp {
     }
 
     @Test
+    @DisplayName("GET /comments - should return all comments with headers validation")
+    public void testGetAllCommentsWithHeaders() {
+        given()
+                .spec(requestSpec)
+        .when()
+                .get(Endpoints.COMMENTS)
+        .then()
+                .statusCode(200)
+                .header("Content-Type", equalTo("application/json; charset=utf-8"))
+                .header("Cache-Control", notNullValue())
+                .body("size()", greaterThan(0));
+    }
+
+    @Test
     @DisplayName("GET /comments/1 - should return single comment with expected fields")
     public void testGetSingleComment() {
         given()

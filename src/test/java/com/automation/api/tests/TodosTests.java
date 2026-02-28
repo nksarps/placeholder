@@ -28,6 +28,20 @@ public class TodosTests extends SetUp {
     }
 
     @Test
+    @DisplayName("GET /todos - should return all todos with headers validation")
+    public void testGetAllTodosWithHeaders() {
+        given()
+                .spec(requestSpec)
+        .when()
+                .get(Endpoints.TODOS)
+        .then()
+                .statusCode(200)
+                .header("Content-Type", equalTo("application/json; charset=utf-8"))
+                .header("Cache-Control", notNullValue())
+                .body("size()", greaterThan(0));
+    }
+
+    @Test
     @DisplayName("GET /todos/1 - should return single todo with expected fields")
     public void testGetSingleTodo() {
         given()
