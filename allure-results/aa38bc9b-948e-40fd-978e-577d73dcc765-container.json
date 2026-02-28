@@ -1,0 +1,1 @@
+{"uuid":"aa38bc9b-948e-40fd-978e-577d73dcc765","name":"DELETE /photos/1 - should delete photo and return status 200 or 204","children":["d341355c-949f-424b-9613-b56e39e62237"],"befores":[],"afters":[],"start":1772235032675,"stop":1772235033229}
