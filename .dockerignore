@@ -1,0 +1,45 @@
+# Build and IDE artifacts
+target/
+.git/
+.gitignore
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.DS_Store
+node_modules/
+
+# Documentation
+README.md
+LICENSE
+*.md
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+Jenkinsfile
+.travis.yml
+
+# Environment and local files - block sensitive ones only
+.env.local
+.env.*.local
+.env.prod
+.env.production
+*.log
+.vscode/
+
+# Docker files (don't include in build context)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Temporary files
+*.tmp
+*.temp
+.gradle/
+*.tmp
+*.temp
+.gradle/
+
+
