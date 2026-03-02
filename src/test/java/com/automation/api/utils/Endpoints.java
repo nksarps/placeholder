@@ -5,8 +5,6 @@ package com.automation.api.utils;
  * Keeps test classes free of hard-coded URL fragments.
  */
 public final class Endpoints {
-    private Endpoints() { }
-
     // Resource base paths
     public static final String POSTS = "/posts";
     public static final String COMMENTS = "/comments";
