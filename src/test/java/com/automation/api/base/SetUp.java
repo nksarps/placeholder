@@ -31,7 +31,7 @@ public class SetUp {
 
     /**
      * Setup method that runs before each test
-     * Initializes REST Assured configuration, request and response specifications
+     * Initializes REST Assured configuration, request specification
      */
     @BeforeEach
     public void setUp() {
@@ -118,9 +118,3 @@ public class SetUp {
         }
     }
 }
-
-
-
-
-
-
