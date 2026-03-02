@@ -6,25 +6,25 @@ package com.automation.api.utils;
 public final class TestData {
     private TestData() {}
 
-    public static final int DEFAULT_USER_ID = 1;
-    public static final int DEFAULT_POST_ID = 1;
-    public static final int DEFAULT_COMMENT_POST_ID = 1;
-    public static final int DEFAULT_PHOTO_ALBUM_ID = 1;
-    public static final int DEFAULT_TODO_USER_ID = 1;
+    public static final int DEFAULT_USER_ID = RandomIdGenerator.getRandomUserId();
+    public static final int DEFAULT_POST_ID = RandomIdGenerator.getRandomPostId();
+    public static final int DEFAULT_COMMENT_POST_ID = RandomIdGenerator.getRandomPostId();
+    public static final int DEFAULT_PHOTO_ALBUM_ID = RandomIdGenerator.getRandomAlbumId();
+    public static final int DEFAULT_TODO_USER_ID = RandomIdGenerator.getRandomUserId();
 
     public static final int INVALID_ID = 99999;
 
     // POST test data
     public static final String POST_TITLE = "Test Post Title";
     public static final String POST_BODY = "This is a test post body created by automation";
-    public static final int POST_USER_ID = 1;
+    public static final int POST_USER_ID = RandomIdGenerator.getRandomUserId();
 
     // PUT test data
     public static final String UPDATED_POST_TITLE = "Updated Post Title";
     public static final String UPDATED_POST_BODY = "This is the updated post body";
 
     // Comment test data
-    public static final int DEFAULT_COMMENT_ID = 1;
+    public static final int DEFAULT_COMMENT_ID = RandomIdGenerator.getRandomCommentId();
     public static final String COMMENT_NAME = "Test Comment Author";
     public static final String COMMENT_EMAIL = "test@example.com";
     public static final String COMMENT_BODY = "This is a test comment created by automation";
@@ -35,14 +35,14 @@ public final class TestData {
     public static final String UPDATED_COMMENT_BODY = "This is an updated test comment";
 
     // Album test data
-    public static final int DEFAULT_ALBUM_ID = 1;
+    public static final int DEFAULT_ALBUM_ID = RandomIdGenerator.getRandomAlbumId();
     public static final String ALBUM_TITLE = "Test Album Title";
 
     // Updated album test data
     public static final String UPDATED_ALBUM_TITLE = "Updated Album Title";
 
     // Photo test data
-    public static final int DEFAULT_PHOTO_ID = 1;
+    public static final int DEFAULT_PHOTO_ID = RandomIdGenerator.getRandomPhotoId();
     public static final String PHOTO_TITLE = "Test Photo Title";
     public static final String PHOTO_URL = "https://via.placeholder.com/600/92c952";
     public static final String PHOTO_THUMBNAIL_URL = "https://via.placeholder.com/150/92c952";
@@ -53,7 +53,7 @@ public final class TestData {
     public static final String UPDATED_PHOTO_THUMBNAIL_URL = "https://via.placeholder.com/150/771796";
 
     // Todo test data
-    public static final int DEFAULT_TODO_ID = 1;
+    public static final int DEFAULT_TODO_ID = RandomIdGenerator.getRandomTodoId();
     public static final String TODO_TITLE = "Test Todo Title";
     public static final boolean TODO_COMPLETED = false;
 
