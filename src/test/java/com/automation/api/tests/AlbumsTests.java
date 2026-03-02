@@ -1,8 +1,9 @@
 package com.automation.api.tests;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.config.ApiConfig;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.utils.TestData;
+import com.automation.api.resources.TestData;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AlbumsTests extends SetUp {
 
     @Test
-    @DisplayName("GET /albums - should return all albums")
+    @DisplayName("Validate API returns all albums")
     public void testGetAllAlbums() {
         given()
                 .spec(requestSpec)
@@ -28,7 +29,7 @@ public class AlbumsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /albums/1 - should return single album with expected fields")
+    @DisplayName("Validate API returns single album with expected fields")
     public void testGetSingleAlbum() {
         given()
                 .spec(requestSpec)
@@ -42,7 +43,7 @@ public class AlbumsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /albums?userId=1 - should return albums for userId=1")
+    @DisplayName("Validate API returns albums for specific userId")
     public void testGetAlbumsByUserId() {
         given()
                 .spec(requestSpec)
@@ -56,30 +57,24 @@ public class AlbumsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /albums/99999 - invalid album should return empty object or 404")
+    @DisplayName("Validate API handles invalid album request gracefully")
     public void testGetInvalidAlbum() {
         Response resp = given()
                 .spec(requestSpec)
         .when()
                 .get(Endpoints.albumById(TestData.INVALID_ID))
         .then()
-                .extract()
-                .response();
+                .extract() 
+                .response(); // Extract the response to perform custom assertions
 
         int statusCode = resp.statusCode();
-        String body = resp.asString().trim();
 
-        assertTrue(statusCode == 200 || statusCode == 404,
-                "Expected status 200 or 404 for invalid album, got: " + statusCode);
-
-        if (statusCode == 200) {
-            boolean isEmptyObject = "{}".equals(body) || body.isEmpty();
-            assertTrue(isEmptyObject, "Expected empty object or empty body for non-existent album, got: " + body);
-        }
+        assertTrue(statusCode == 404,
+                "Expected status 404 for invalid album, got: " + statusCode);
     }
 
     @Test
-    @DisplayName("GET /albums/1 - validate Content-Type header and charset")
+    @DisplayName("Validate API Content-Type header and charset")
     public void testValidateContentType() {
         Response resp = given()
                 .spec(requestSpec)
@@ -88,18 +83,19 @@ public class AlbumsTests extends SetUp {
         .then()
                 .statusCode(200)
                 .extract()
-                .response();
+                .response(); // Extract the response to perform custom assertions
 
+        // Check that Content-Type header is present and contains application/json
         String contentType = resp.getHeader("Content-Type");
         assertNotNull(contentType, "Content-Type header should be present");
-        assertTrue(contentType.toLowerCase().contains("application/json"), "Expected Content-Type to contain 'application/json' but was: " + contentType);
+        assertTrue(contentType.toLowerCase().contains(ApiConfig.getContentType()), "Expected Content-Type to contain 'application/json' but was: " + contentType);
         if (contentType.toLowerCase().contains("charset")) {
-            assertTrue(contentType.toLowerCase().contains("utf-8"), "Expected charset to be UTF-8 when present, but was: " + contentType);
+            assertTrue(contentType.toLowerCase().contains(ApiConfig.getCharset()), "Expected charset to be UTF-8 when present, but was: " + contentType);
         }
     }
 
     @Test
-    @DisplayName("POST /albums - should create a new album with status 201")
+    @DisplayName("Validate API creates a new album and returns status 201")
     public void testCreateAlbum() {
         given()
                 .spec(requestSpec)
@@ -118,7 +114,7 @@ public class AlbumsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("PUT /albums/1 - should update an existing album with status 200")
+    @DisplayName("Validate API updates an existing album")
     public void testUpdateAlbum() {
         given()
                 .spec(requestSpec)
@@ -138,7 +134,7 @@ public class AlbumsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("DELETE /albums/1 - should delete album and return status 200 or 204")
+    @DisplayName("Validate API deletes an album")
     public void testDeleteAlbum() {
         given()
                 .spec(requestSpec)

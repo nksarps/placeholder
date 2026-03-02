@@ -1,8 +1,9 @@
 package com.automation.api.tests;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.config.ApiConfig;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.utils.TestData;
+import com.automation.api.resources.TestData;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TodosTests extends SetUp {
 
     @Test
-    @DisplayName("GET /todos - should return all todos")
+    @DisplayName("Validate API returns all todos")
     public void testGetAllTodos() {
         given()
                 .spec(requestSpec)
@@ -28,7 +29,7 @@ public class TodosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /todos - should return all todos with headers validation")
+    @DisplayName("Validate API returns all todos with headers validation")
     public void testGetAllTodosWithHeaders() {
         given()
                 .spec(requestSpec)
@@ -42,7 +43,7 @@ public class TodosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /todos/1 - should return single todo with expected fields")
+    @DisplayName("Validate API returns single todo with expected fields")
     public void testGetSingleTodo() {
         given()
                 .spec(requestSpec)
@@ -57,7 +58,7 @@ public class TodosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /todos?userId=1 - should return todos for userId=1")
+    @DisplayName("Validate API returns todos for userId=1")
     public void testGetTodosByUserId() {
         given()
                 .spec(requestSpec)
@@ -71,7 +72,7 @@ public class TodosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /todos/99999 - invalid todo should return empty object or 404")
+    @DisplayName("Validate API handles invalid todo with empty 404 status")
     public void testGetInvalidTodo() {
         Response resp = given()
                 .spec(requestSpec)
@@ -82,19 +83,13 @@ public class TodosTests extends SetUp {
                 .response();
 
         int statusCode = resp.statusCode();
-        String body = resp.asString().trim();
 
-        assertTrue(statusCode == 200 || statusCode == 404,
-                "Expected status 200 or 404 for invalid todo, got: " + statusCode);
-
-        if (statusCode == 200) {
-            boolean isEmptyObject = "{}".equals(body) || body.isEmpty();
-            assertTrue(isEmptyObject, "Expected empty object or empty body for non-existent todo, got: " + body);
-        }
+        assertTrue(statusCode == 404,
+                "Expected status 404 for invalid todo, got: " + statusCode);
     }
 
     @Test
-    @DisplayName("GET /todos/1 - validate Content-Type header and charset")
+    @DisplayName("Validate API Content-Type header and charset")
     public void testValidateContentType() {
         Response resp = given()
                 .spec(requestSpec)
@@ -107,14 +102,14 @@ public class TodosTests extends SetUp {
 
         String contentType = resp.getHeader("Content-Type");
         assertNotNull(contentType, "Content-Type header should be present");
-        assertTrue(contentType.toLowerCase().contains("application/json"), "Expected Content-Type to contain 'application/json' but was: " + contentType);
+        assertTrue(contentType.toLowerCase().contains(ApiConfig.getContentType()), "Expected Content-Type to contain 'application/json' but was: " + contentType);
         if (contentType.toLowerCase().contains("charset")) {
-            assertTrue(contentType.toLowerCase().contains("utf-8"), "Expected charset to be UTF-8 when present, but was: " + contentType);
+            assertTrue(contentType.toLowerCase().contains(ApiConfig.getCharset()), "Expected charset to be UTF-8 when present, but was: " + contentType);
         }
     }
 
     @Test
-    @DisplayName("POST /todos - should create a new todo with status 201")
+    @DisplayName("Validate API creates a new todo with status 201")
     public void testCreateTodo() {
         given()
                 .spec(requestSpec)
@@ -135,7 +130,7 @@ public class TodosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("PUT /todos/1 - should update an existing todo with status 200")
+    @DisplayName("Validate API updates an existing todo with status 200")
     public void testUpdateTodo() {
         given()
                 .spec(requestSpec)
@@ -157,7 +152,7 @@ public class TodosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("DELETE /todos/1 - should delete todo and return status 200 or 204")
+    @DisplayName("Validate API deletes todo and returns status 200 or 204")
     public void testDeleteTodo() {
         given()
                 .spec(requestSpec)

@@ -1,8 +1,9 @@
 package com.automation.api.tests;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.config.ApiConfig;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.utils.TestData;
+import com.automation.api.resources.TestData;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PhotosTests extends SetUp {
 
     @Test
-    @DisplayName("GET /photos - should return all photos")
+    @DisplayName("Validate API returns all photos")
     public void testGetAllPhotos() {
         given()
                 .spec(requestSpec)
@@ -28,7 +29,7 @@ public class PhotosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /photos/1 - should return single photo with expected fields")
+    @DisplayName("Validate API returns single photo with expected fields")
     public void testGetSinglePhoto() {
         given()
                 .spec(requestSpec)
@@ -44,7 +45,7 @@ public class PhotosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /photos?albumId=1 - should return photos for albumId=1")
+    @DisplayName("Validate API returns photos for albumId=1")
     public void testGetPhotosByAlbumId() {
         given()
                 .spec(requestSpec)
@@ -58,7 +59,7 @@ public class PhotosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /photos/99999 - invalid photo should return empty object or 404")
+    @DisplayName("Validate API handles invalid photo with 404 status")
     public void testGetInvalidPhoto() {
         Response resp = given()
                 .spec(requestSpec)
@@ -69,19 +70,13 @@ public class PhotosTests extends SetUp {
                 .response();
 
         int statusCode = resp.statusCode();
-        String body = resp.asString().trim();
 
-        assertTrue(statusCode == 200 || statusCode == 404,
-                "Expected status 200 or 404 for invalid photo, got: " + statusCode);
-
-        if (statusCode == 200) {
-            boolean isEmptyObject = "{}".equals(body) || body.isEmpty();
-            assertTrue(isEmptyObject, "Expected empty object or empty body for non-existent photo, got: " + body);
-        }
+        assertTrue(statusCode == 404,
+                "Expected status 404 for invalid photo, got: " + statusCode);
     }
 
     @Test
-    @DisplayName("GET /photos/1 - validate Content-Type header and charset")
+    @DisplayName("Validate API Content-Type header and charset")
     public void testValidateContentType() {
         Response resp = given()
                 .spec(requestSpec)
@@ -94,14 +89,14 @@ public class PhotosTests extends SetUp {
 
         String contentType = resp.getHeader("Content-Type");
         assertNotNull(contentType, "Content-Type header should be present");
-        assertTrue(contentType.toLowerCase().contains("application/json"), "Expected Content-Type to contain 'application/json' but was: " + contentType);
+        assertTrue(contentType.toLowerCase().contains(ApiConfig.getContentType()), "Expected Content-Type to contain 'application/json' but was: " + contentType);
         if (contentType.toLowerCase().contains("charset")) {
-            assertTrue(contentType.toLowerCase().contains("utf-8"), "Expected charset to be UTF-8 when present, but was: " + contentType);
+            assertTrue(contentType.toLowerCase().contains(ApiConfig.getCharset()), "Expected charset to be UTF-8 when present, but was: " + contentType);
         }
     }
 
     @Test
-    @DisplayName("POST /photos - should create a new photo with status 201")
+    @DisplayName("Validate API creates a new photo with status 201")
     public void testCreatePhoto() {
         given()
                 .spec(requestSpec)
@@ -124,7 +119,7 @@ public class PhotosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("PUT /photos/1 - should update an existing photo with status 200")
+    @DisplayName("Validate API updates an existing photo with status 200")
     public void testUpdatePhoto() {
         given()
                 .spec(requestSpec)
@@ -148,7 +143,7 @@ public class PhotosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("DELETE /photos/1 - should delete photo and return status 200 or 204")
+    @DisplayName("Validate API deletes photo and returns status 200 or 204")
     public void testDeletePhoto() {
         given()
                 .spec(requestSpec)

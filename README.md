@@ -99,15 +99,17 @@ placeholder
 ├── src
 │   ├── main
 │   │   └── java
-│   ├── test
-│   │   ├── java
-│   │   └── resources
+│   └── test
+│       └── java
 ├── .github
 │   └── workflows
+├── .allure
 ├── allure-results
 ├── target
 ├── pom.xml
 ├── Dockerfile
+├── .dockerignore
+├── .gitignore
 └── .env
 ```
 
@@ -115,11 +117,14 @@ placeholder
 
 - `src/main/java/...`: Application source code.
 - `src/test/java/...`: Test cases.
-- `src/test/resources/...`: Test resources (e.g., data files).
 - `.github/workflows`: CI/CD pipeline configuration.
-- `pom.xml`: Maven project configuration.
+- `.allure`: Allure configuration.
 - `allure-results`: Raw test results for Allure.
 - `target`: Compiled code and test artifacts.
+- `pom.xml`: Maven project configuration.
+- `Dockerfile`: Docker containerization configuration.
+- `.dockerignore`: Docker ignore rules.
+- `.gitignore`: Git ignore rules.
 - `.env`: Environment variables.
 
 # Features

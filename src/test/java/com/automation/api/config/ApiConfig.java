@@ -16,14 +16,14 @@ public class ApiConfig {
     // Common headers
     private static final String CONTENT_TYPE = "application/json";
     private static final String ACCEPT = "application/json";
-    private static final String CHARSET = "UTF-8";
+    private static final String CHARSET = "utf-8";
 
     /**
      * Get the base URI for the API
      *
      * @return the base URI string
      */
-    public static String getBaseUri() {
+    public static String getBaseUrl() {
         return BASE_URI;
     }
 

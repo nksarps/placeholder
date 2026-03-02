@@ -2,9 +2,7 @@ package com.automation.api.base;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,40 +30,29 @@ public class SetUp {
     protected RequestSpecification requestSpec;
 
     /**
-     * Reusable response specification for validating API responses
-     * Configured with common assertion expectations
-     */
-    protected ResponseSpecification responseSpec;
-
-    /**
      * Setup method that runs before each test
-     * Initializes REST Assured configuration, request and response specifications
+     * Initializes REST Assured configuration, request specification
      */
     @BeforeEach
     public void setUp() {
         // Initialize REST Assured base URI
-        RestAssured.baseURI = ApiConfig.getBaseUri();
+        RestAssured.baseURI = ApiConfig.getBaseUrl();
 
         // Build request specification
         requestSpec = new RequestSpecBuilder()
-                .setBaseUri(ApiConfig.getBaseUri())
+                .setBaseUri(ApiConfig.getBaseUrl())
                 .setContentType(ApiConfig.getContentType())
                 .addHeader("Accept", ApiConfig.getAcceptHeader())
                 .build();
 
-        // Build response specification
-        responseSpec = new ResponseSpecBuilder()
-                .expectContentType(ApiConfig.getContentType())
-                .build();
-
         // Set request specification as default
-        // Note: NOT setting responseSpec as default to avoid conflicts with POST/PUT requests
         RestAssured.requestSpecification = requestSpec;
     }
 
     /**
      * Teardown method that runs after each test
      * Performs cleanup operations
+     * This prevents leftover settings from affecting subsequent tests
      */
     @AfterEach
     public void tearDown() {
@@ -75,7 +62,7 @@ public class SetUp {
 
     /**
      * Inner class: JUnit 5 Extension that watches test execution and logs test lifecycle events
-     * Implements TestWatcher to monitor test success, failure, and disabled scenarios
+     * Implements TestWatcher to monitor test success, failure, and skipped scenarios
      */
     public static class TestWatcherExtension implements TestWatcher {
 
@@ -131,9 +118,3 @@ public class SetUp {
         }
     }
 }
-
-
-
-
-
-
