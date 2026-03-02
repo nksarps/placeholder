@@ -60,7 +60,7 @@ public class PutPhotosTests extends SetUp {
 
         int statusCode = resp.statusCode();
 
-        assertTrue(statusCode == 404 || statusCode == 500,
-                "Expected status 404 or 500 for invalid photo update, got: " + statusCode);
+        assertTrue(statusCode == 404,
+                "Expected status 404 for invalid photo update, got: " + statusCode);
     }
 }

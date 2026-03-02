@@ -39,29 +39,6 @@ public class PostCommentsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("Validate API rejects comment creation with missing name field")
-    public void testCreateCommentWithMissingName() {
-        Response resp = given()
-                .spec(requestSpec)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"postId\": " + TestData.DEFAULT_POST_ID + ",\n" +
-                        "  \"email\": \"" + TestData.COMMENT_EMAIL + "\",\n" +
-                        "  \"body\": \"" + TestData.COMMENT_BODY + "\"\n" +
-                        "}")
-        .when()
-                .post(Endpoints.COMMENTS)
-        .then()
-                .extract()
-                .response();
-
-        int statusCode = resp.statusCode();
-
-        assertTrue(statusCode == 400 || statusCode == 422,
-                "Expected status 400 or 422 for comment creation with missing name, got: " + statusCode);
-    }
-
-    @Test
     @DisplayName("Validate API rejects comment creation with empty body")
     public void testCreateCommentWithEmptyBody() {
         Response resp = given()

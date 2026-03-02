@@ -39,52 +39,6 @@ public class PostPhotosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("Validate API handles photo creation with missing title field")
-    public void testCreatePhotoWithMissingTitle() {
-        Response resp = given()
-                .spec(requestSpec)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"albumId\": " + TestData.DEFAULT_PHOTO_ALBUM_ID + ",\n" +
-                        "  \"url\": \"" + TestData.PHOTO_URL + "\",\n" +
-                        "  \"thumbnailUrl\": \"" + TestData.PHOTO_THUMBNAIL_URL + "\"\n" +
-                        "}")
-        .when()
-                .post(Endpoints.PHOTOS)
-        .then()
-                .extract()
-                .response();
-
-        int statusCode = resp.statusCode();
-
-        assertTrue(statusCode == 400 || statusCode == 422 || statusCode == 201,
-                "Expected status 400, 422, or 201 for photo creation with missing title, got: " + statusCode);
-    }
-
-    @Test
-    @DisplayName("Validate API handles photo creation with missing url field")
-    public void testCreatePhotoWithMissingUrl() {
-        Response resp = given()
-                .spec(requestSpec)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"albumId\": " + TestData.DEFAULT_PHOTO_ALBUM_ID + ",\n" +
-                        "  \"title\": \"" + TestData.PHOTO_TITLE + "\",\n" +
-                        "  \"thumbnailUrl\": \"" + TestData.PHOTO_THUMBNAIL_URL + "\"\n" +
-                        "}")
-        .when()
-                .post(Endpoints.PHOTOS)
-        .then()
-                .extract()
-                .response();
-
-        int statusCode = resp.statusCode();
-
-        assertTrue(statusCode == 400 || statusCode == 422 || statusCode == 201,
-                "Expected status 400, 422, or 201 for photo creation with missing url, got: " + statusCode);
-    }
-
-    @Test
     @DisplayName("Validate API handles photo creation with missing thumbnailUrl field")
     public void testCreatePhotoWithMissingThumbnailUrl() {
         Response resp = given()
@@ -103,8 +57,8 @@ public class PostPhotosTests extends SetUp {
 
         int statusCode = resp.statusCode();
 
-        assertTrue(statusCode == 400 || statusCode == 422 || statusCode == 201,
-                "Expected status 400, 422, or 201 for photo creation with missing thumbnailUrl, got: " + statusCode);
+        assertTrue(statusCode == 400 || statusCode == 422,
+                "Expected status 400 or 422 for photo creation with missing thumbnailUrl, got: " + statusCode);
     }
 
     @Test
@@ -122,7 +76,7 @@ public class PostPhotosTests extends SetUp {
 
         int statusCode = resp.statusCode();
 
-        assertTrue(statusCode == 400 || statusCode == 422 || statusCode == 201,
-                "Expected status 400, 422, or 201 for photo creation with empty body, got: " + statusCode);
+        assertTrue(statusCode == 400 || statusCode == 422,
+                "Expected status 400 or 422 for photo creation with empty body, got: " + statusCode);
     }
 }

@@ -26,7 +26,7 @@ public class DeletePhotosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("Validate API handles delete of invalid photo gracefully")
+    @DisplayName("Validate API handles deletion of non-existent photos gracefully")
     public void testDeleteInvalidPhoto() {
         Response resp = given()
                 .spec(requestSpec)
@@ -38,7 +38,7 @@ public class DeletePhotosTests extends SetUp {
 
         int statusCode = resp.statusCode();
 
-        assertTrue(statusCode == 404 || statusCode == 500,
-                "Expected status 404 or 500 for invalid photo deletion, got: " + statusCode);
+        assertTrue(statusCode == 404,
+                "Expected status 404 for invalid photo deletion, got: " + statusCode);
     }
 }
