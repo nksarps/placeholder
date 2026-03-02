@@ -23,7 +23,7 @@ public class ApiConfig {
      *
      * @return the base URI string
      */
-    public static String getBaseUri() {
+    public static String getBaseUrl() {
         return BASE_URI;
     }
 
