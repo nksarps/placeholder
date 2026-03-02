@@ -1,10 +1,9 @@
-package com.automation.api.tests;
+package com.automation.api.tests.posts;
 
 import com.automation.api.base.SetUp;
 import com.automation.api.config.ApiConfig;
 import com.automation.api.utils.Endpoints;
 import com.automation.api.resources.TestData;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Posts API Tests")
-public class PostsTests extends SetUp {
+@DisplayName("GET Posts API Tests")
+public class GetPostsTests extends SetUp {
 
     @Test
     @DisplayName("Validate API returns all posts")
@@ -29,7 +28,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("Validate API returns single post with expected fields")
+    @DisplayName("Validate API returns a valid post with expected fields")
     public void testGetSinglePost() {
         given()
                 .spec(requestSpec)
@@ -44,7 +43,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("Validate API returns posts for userId=1")
+    @DisplayName("Validate API returns posts for a specific user ID")
     public void testGetPostsByUserId() {
         given()
                 .spec(requestSpec)
@@ -58,7 +57,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("Validate API handles invalid post with 404 status")
+    @DisplayName("Validate API handles invalid Posts requests gracefully")
     public void testGetInvalidPost() {
         Response resp = given()
                 .spec(requestSpec)
@@ -75,7 +74,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("Validate API Content-Type header and charset")
+    @DisplayName("Validate returns correct Content-Type header and charset for a valid post")
     public void testValidateContentType() {
         Response resp = given()
                 .spec(requestSpec)
@@ -106,59 +105,5 @@ public class PostsTests extends SetUp {
                 .header("Content-Type", equalTo(ApiConfig.getContentTypeWithCharset()))
                 .header("Cache-Control", notNullValue())
                 .body("size()", greaterThan(0));
-    }
-
-    @Test
-    @DisplayName("Validate API creates a new post with status 201")
-    public void testCreatePost() {
-        given()
-                .spec(requestSpec)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"title\": \"" + TestData.POST_TITLE + "\",\n" +
-                        "  \"body\": \"" + TestData.POST_BODY + "\",\n" +
-                        "  \"userId\": " + TestData.POST_USER_ID + "\n" +
-                        "}")
-        .when()
-                .post(Endpoints.POSTS)
-        .then()
-                .statusCode(201)
-                .body("title", equalTo(TestData.POST_TITLE))
-                .body("body", equalTo(TestData.POST_BODY))
-                .body("userId", equalTo(TestData.POST_USER_ID))
-                .body("id", notNullValue());
-    }
-
-    @Test
-    @DisplayName("Validate API updates an existing post with status 200")
-    public void testUpdatePost() {
-        given()
-                .spec(requestSpec)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"id\": " + TestData.DEFAULT_POST_ID + ",\n" +
-                        "  \"title\": \"" + TestData.UPDATED_POST_TITLE + "\",\n" +
-                        "  \"body\": \"" + TestData.UPDATED_POST_BODY + "\",\n" +
-                        "  \"userId\": " + TestData.DEFAULT_USER_ID + "\n" +
-                        "}")
-        .when()
-                .put(Endpoints.postById(TestData.DEFAULT_POST_ID))
-        .then()
-                .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_POST_ID))
-                .body("title", equalTo(TestData.UPDATED_POST_TITLE))
-                .body("body", equalTo(TestData.UPDATED_POST_BODY))
-                .body("userId", equalTo(TestData.DEFAULT_USER_ID));
-    }
-
-    @Test
-    @DisplayName("Validate API deletes post and returns status 200 or 204")
-    public void testDeletePost() {
-        given()
-                .spec(requestSpec)
-        .when()
-                .delete(Endpoints.postById(TestData.DEFAULT_POST_ID))
-        .then()
-                .statusCode(anyOf(equalTo(200), equalTo(204)));
     }
 }

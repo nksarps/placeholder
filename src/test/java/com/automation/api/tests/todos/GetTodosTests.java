@@ -1,10 +1,9 @@
-package com.automation.api.tests;
+package com.automation.api.tests.todos;
 
 import com.automation.api.base.SetUp;
 import com.automation.api.config.ApiConfig;
 import com.automation.api.utils.Endpoints;
 import com.automation.api.resources.TestData;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Todos API Tests")
-public class TodosTests extends SetUp {
+@DisplayName("GET Todos API Tests")
+public class GetTodosTests extends SetUp {
 
     @Test
     @DisplayName("Validate API returns all todos")
@@ -58,7 +57,7 @@ public class TodosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("Validate API returns todos for userId=1")
+    @DisplayName("Validate API returns todos for a specific user ID")
     public void testGetTodosByUserId() {
         given()
                 .spec(requestSpec)
@@ -72,7 +71,7 @@ public class TodosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("Validate API handles invalid todo with empty 404 status")
+    @DisplayName("Validate API handles invalid todo requests gracefully")
     public void testGetInvalidTodo() {
         Response resp = given()
                 .spec(requestSpec)
@@ -106,59 +105,5 @@ public class TodosTests extends SetUp {
         if (contentType.toLowerCase().contains("charset")) {
             assertTrue(contentType.toLowerCase().contains(ApiConfig.getCharset()), "Expected charset to be UTF-8 when present, but was: " + contentType);
         }
-    }
-
-    @Test
-    @DisplayName("Validate API creates a new todo with status 201")
-    public void testCreateTodo() {
-        given()
-                .spec(requestSpec)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"userId\": " + TestData.DEFAULT_TODO_USER_ID + ",\n" +
-                        "  \"title\": \"" + TestData.TODO_TITLE + "\",\n" +
-                        "  \"completed\": " + TestData.TODO_COMPLETED + "\n" +
-                        "}")
-        .when()
-                .post(Endpoints.TODOS)
-        .then()
-                .statusCode(201)
-                .body("userId", equalTo(TestData.DEFAULT_TODO_USER_ID))
-                .body("title", equalTo(TestData.TODO_TITLE))
-                .body("completed", equalTo(TestData.TODO_COMPLETED))
-                .body("id", notNullValue());
-    }
-
-    @Test
-    @DisplayName("Validate API updates an existing todo with status 200")
-    public void testUpdateTodo() {
-        given()
-                .spec(requestSpec)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"userId\": " + TestData.DEFAULT_TODO_USER_ID + ",\n" +
-                        "  \"id\": " + TestData.DEFAULT_TODO_ID + ",\n" +
-                        "  \"title\": \"" + TestData.UPDATED_TODO_TITLE + "\",\n" +
-                        "  \"completed\": " + TestData.UPDATED_TODO_COMPLETED + "\n" +
-                        "}")
-        .when()
-                .put(Endpoints.todoById(TestData.DEFAULT_TODO_ID))
-        .then()
-                .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_TODO_ID))
-                .body("userId", equalTo(TestData.DEFAULT_TODO_USER_ID))
-                .body("title", equalTo(TestData.UPDATED_TODO_TITLE))
-                .body("completed", equalTo(TestData.UPDATED_TODO_COMPLETED));
-    }
-
-    @Test
-    @DisplayName("Validate API deletes todo and returns status 200 or 204")
-    public void testDeleteTodo() {
-        given()
-                .spec(requestSpec)
-        .when()
-                .delete(Endpoints.todoById(TestData.DEFAULT_TODO_ID))
-        .then()
-                .statusCode(anyOf(equalTo(200), equalTo(204)));
     }
 }

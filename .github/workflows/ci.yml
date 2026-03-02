@@ -86,9 +86,9 @@ jobs:
 
           PASSED=$((TOTAL - FAILED - SKIPPED))
 
-          # Extract failing test names using [FAIL] marker from surefire XML reports (system-err)
-          FAILING_TESTS_RAW=$(grep -oh '\[FAIL\][^<]*' target/surefire-reports/TEST-*.xml 2>/dev/null \
-            | sed 's/ ==>.*//' \
+          # Extract failing test names using [FAILED] marker from surefire XML reports (system-err)
+          FAILING_TESTS_RAW=$(grep -oh '\[FAILED\][^<]*' target/surefire-reports/TEST-*.xml 2>/dev/null \
+            | sed 's/\[FAILED\]: *//' \
             | sort -u || true)
 
           # Escape newlines for JSON payload (replace newline with literal \n)
