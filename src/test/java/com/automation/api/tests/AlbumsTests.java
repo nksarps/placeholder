@@ -68,16 +68,9 @@ public class AlbumsTests extends SetUp {
                 .response(); // Extract the response to perform custom assertions
 
         int statusCode = resp.statusCode();
-        String body = resp.asString().trim();
 
-        assertTrue(statusCode == 200 || statusCode == 404,
-                "Expected status 200 or 404 for invalid album, got: " + statusCode);
-
-        // If status is 200, we expect an empty object or empty body for non-existent album
-        if (statusCode == 200) {
-            boolean isEmptyObject = "{}".equals(body) || body.isEmpty();
-            assertTrue(isEmptyObject, "Expected empty object or empty body for non-existent album, got: " + body);
-        }
+        assertTrue(statusCode == 404,
+                "Expected status 404 for invalid album, got: " + statusCode);
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.automation.api.tests;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.config.ApiConfig;
 import com.automation.api.utils.Endpoints;
 import com.automation.api.resources.TestData;
 import io.restassured.http.ContentType;
@@ -58,7 +59,7 @@ public class PhotosTests extends SetUp {
     }
 
     @Test
-    @DisplayName("Validate API handles invalid photo with empty object or 404")
+    @DisplayName("Validate API handles invalid photo with 404 status")
     public void testGetInvalidPhoto() {
         Response resp = given()
                 .spec(requestSpec)
@@ -69,15 +70,9 @@ public class PhotosTests extends SetUp {
                 .response();
 
         int statusCode = resp.statusCode();
-        String body = resp.asString().trim();
 
-        assertTrue(statusCode == 200 || statusCode == 404,
-                "Expected status 200 or 404 for invalid photo, got: " + statusCode);
-
-        if (statusCode == 200) {
-            boolean isEmptyObject = "{}".equals(body) || body.isEmpty();
-            assertTrue(isEmptyObject, "Expected empty object or empty body for non-existent photo, got: " + body);
-        }
+        assertTrue(statusCode == 404,
+                "Expected status 404 for invalid photo, got: " + statusCode);
     }
 
     @Test
@@ -94,9 +89,9 @@ public class PhotosTests extends SetUp {
 
         String contentType = resp.getHeader("Content-Type");
         assertNotNull(contentType, "Content-Type header should be present");
-        assertTrue(contentType.toLowerCase().contains("application/json"), "Expected Content-Type to contain 'application/json' but was: " + contentType);
+        assertTrue(contentType.toLowerCase().contains(ApiConfig.getContentType()), "Expected Content-Type to contain 'application/json' but was: " + contentType);
         if (contentType.toLowerCase().contains("charset")) {
-            assertTrue(contentType.toLowerCase().contains("utf-8"), "Expected charset to be UTF-8 when present, but was: " + contentType);
+            assertTrue(contentType.toLowerCase().contains(ApiConfig.getCharset()), "Expected charset to be UTF-8 when present, but was: " + contentType);
         }
     }
 
