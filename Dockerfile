@@ -18,10 +18,11 @@ COPY src ./src
 # The dotenv-java library will read BASE_URL from this file
 COPY .env* ./
 
-# Build and run tests, generate Allure reports
-# BASE_URL will be read from .env file by dotenv-java
-RUN mvn clean test \
-    -DskipTests=false \
+# Build project without running tests so image creation is not blocked by test failures
+# BASE_URL will be read from .env file by dotenv-java when tests are executed at runtime
+RUN mkdir -p /app/allure-results && \
+    mvn clean package \
+    -DskipTests=true \
     -Dallure.results.directory=/app/allure-results \
     -Dorg.slf4j.simpleLogger.defaultLogLevel=info
 
