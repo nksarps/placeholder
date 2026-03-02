@@ -2,7 +2,7 @@ package com.automation.api.tests;
 
 import com.automation.api.base.SetUp;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.utils.TestData;
+import com.automation.api.resources.TestData;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PostsTests extends SetUp {
 
     @Test
-    @DisplayName("GET /posts - should return all posts")
+    @DisplayName("Validate API returns all posts")
     public void testGetAllPosts() {
         given()
                 .spec(requestSpec)
@@ -28,7 +28,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /posts/1 - should return single post with expected fields")
+    @DisplayName("Validate API returns single post with expected fields")
     public void testGetSinglePost() {
         given()
                 .spec(requestSpec)
@@ -43,7 +43,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /posts?userId=1 - should return posts for userId=1")
+    @DisplayName("Validate API returns posts for userId=1")
     public void testGetPostsByUserId() {
         given()
                 .spec(requestSpec)
@@ -57,7 +57,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /posts/99999 - invalid post should return empty object or 404")
+    @DisplayName("Validate API handles invalid post with empty object or 404")
     public void testGetInvalidPost() {
         Response resp = given()
                 .spec(requestSpec)
@@ -80,7 +80,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /posts/1 - validate Content-Type header and charset")
+    @DisplayName("Validate API Content-Type header and charset")
     public void testValidateContentType() {
         Response resp = given()
                 .spec(requestSpec)
@@ -100,7 +100,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /posts - should return all posts with headers validation")
+    @DisplayName("Validate API returns all posts with headers validation")
     public void testGetAllPostsWithHeaders() {
         given()
                 .spec(requestSpec)
@@ -114,7 +114,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("POST /posts - should create a new post with status 201")
+    @DisplayName("Validate API creates a new post with status 201")
     public void testCreatePost() {
         given()
                 .spec(requestSpec)
@@ -135,7 +135,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("PUT /posts/1 - should update an existing post with status 200")
+    @DisplayName("Validate API updates an existing post with status 200")
     public void testUpdatePost() {
         given()
                 .spec(requestSpec)
@@ -157,7 +157,7 @@ public class PostsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("DELETE /posts/1 - should delete post and return status 200 or 204")
+    @DisplayName("Validate API deletes post and returns status 200 or 204")
     public void testDeletePost() {
         given()
                 .spec(requestSpec)

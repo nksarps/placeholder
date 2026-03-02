@@ -2,7 +2,7 @@ package com.automation.api.tests;
 
 import com.automation.api.base.SetUp;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.utils.TestData;
+import com.automation.api.resources.TestData;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UsersTests extends SetUp {
 
     @Test
-    @DisplayName("GET /users - should return all users")
+    @DisplayName("Validate API returns all users")
     public void testGetAllUsers() {
         given()
                 .spec(requestSpec)
@@ -28,7 +28,7 @@ public class UsersTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /users/1 - should return single user with expected fields")
+    @DisplayName("Validate API returns single user with expected fields")
     public void testGetSingleUser() {
         given()
                 .spec(requestSpec)
@@ -43,7 +43,7 @@ public class UsersTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /users - should contain user with username")
+    @DisplayName("Validate API contains user with username")
     public void testGetUserByUsername() {
         given()
                 .spec(requestSpec)
@@ -55,7 +55,7 @@ public class UsersTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /users/99999 - invalid user should return empty object or 404")
+    @DisplayName("Validate API handles invalid user with empty object or 404")
     public void testGetInvalidUser() {
         Response resp = given()
                 .spec(requestSpec)
@@ -78,7 +78,7 @@ public class UsersTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /users/1 - validate Content-Type header and charset")
+    @DisplayName("Validate API Content-Type header and charset")
     public void testValidateContentType() {
         Response resp = given()
                 .spec(requestSpec)
@@ -98,7 +98,7 @@ public class UsersTests extends SetUp {
     }
 
     @Test
-    @DisplayName("POST /users - should create a new user with status 201")
+    @DisplayName("Validate API creates a new user with status 201")
     public void testCreateUser() {
         given()
                 .spec(requestSpec)
@@ -121,7 +121,7 @@ public class UsersTests extends SetUp {
     }
 
     @Test
-    @DisplayName("PUT /users/1 - should update an existing user with status 200")
+    @DisplayName("Validate API updates an existing user with status 200")
     public void testUpdateUser() {
         given()
                 .spec(requestSpec)
@@ -145,7 +145,7 @@ public class UsersTests extends SetUp {
     }
 
     @Test
-    @DisplayName("DELETE /users/1 - should delete user and return status 200 or 204")
+    @DisplayName("Validate API deletes user and returns status 200 or 204")
     public void testDeleteUser() {
         given()
                 .spec(requestSpec)

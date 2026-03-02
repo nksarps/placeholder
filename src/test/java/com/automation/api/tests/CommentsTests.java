@@ -2,7 +2,7 @@ package com.automation.api.tests;
 
 import com.automation.api.base.SetUp;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.utils.TestData;
+import com.automation.api.resources.TestData;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CommentsTests extends SetUp {
 
     @Test
-    @DisplayName("GET /comments - should return all comments")
+    @DisplayName("Validate API returns all comments")
     public void testGetAllComments() {
         given()
                 .spec(requestSpec)
@@ -28,7 +28,7 @@ public class CommentsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /comments - should return all comments with headers validation")
+    @DisplayName("Validate API returns all comments with headers validation")
     public void testGetAllCommentsWithHeaders() {
         given()
                 .spec(requestSpec)
@@ -42,7 +42,7 @@ public class CommentsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /comments/1 - should return single comment with expected fields")
+    @DisplayName("Validate API returns single comment with expected fields")
     public void testGetSingleComment() {
         given()
                 .spec(requestSpec)
@@ -58,7 +58,7 @@ public class CommentsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /comments?postId=1 - should return comments for the post")
+    @DisplayName("Validate API returns comments for the post")
     public void testGetCommentsByPostId() {
         given()
                 .spec(requestSpec)
@@ -72,7 +72,7 @@ public class CommentsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /comments/99999 - invalid comment should return empty object or 404")
+    @DisplayName("Validate API handles invalid comment with empty object or 404")
     public void testGetInvalidComment() {
         Response resp = given()
                 .spec(requestSpec)
@@ -95,7 +95,7 @@ public class CommentsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("GET /comments/1 - validate Content-Type header and charset")
+    @DisplayName("Validate API Content-Type header and charset")
     public void testValidateContentType() {
         Response resp = given()
                 .spec(requestSpec)
@@ -115,7 +115,7 @@ public class CommentsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("POST /comments - should create a new comment with status 201")
+    @DisplayName("Validate API creates a new comment with status 201")
     public void testCreateComment() {
         given()
                 .spec(requestSpec)
@@ -138,7 +138,7 @@ public class CommentsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("PUT /comments/1 - should update an existing comment with status 200")
+    @DisplayName("Validate API updates an existing comment with status 200")
     public void testUpdateComment() {
         given()
                 .spec(requestSpec)
@@ -162,7 +162,7 @@ public class CommentsTests extends SetUp {
     }
 
     @Test
-    @DisplayName("DELETE /comments/1 - should delete comment and return status 200 or 204")
+    @DisplayName("Validate API deletes comment and returns status 200 or 204")
     public void testDeleteComment() {
         given()
                 .spec(requestSpec)
