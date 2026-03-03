@@ -12,9 +12,4 @@ public class PhotosData {
     public static final String UPDATED_PHOTO_TITLE = "Updated Photo Title";
     public static final String UPDATED_PHOTO_URL = "https://via.placeholder.com/600/771796";
     public static final String UPDATED_PHOTO_THUMBNAIL_URL = "https://via.placeholder.com/150/771796";
-
-    // JSON schema paths
-    private static final String SCHEMA_BASE_PATH = "schemas/";
-    public static final String PHOTO_SCHEMA_PATH = SCHEMA_BASE_PATH + "photo-schema.json";
-    public static final String PHOTO_CREATE_RESPONSE_SCHEMA_PATH = SCHEMA_BASE_PATH + "photo-create-response-schema.json";
 }

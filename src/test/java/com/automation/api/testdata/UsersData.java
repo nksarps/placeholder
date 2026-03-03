@@ -14,9 +14,4 @@ public class UsersData {
     public static final String UPDATED_USER_EMAIL = "updateduser@example.com";
     public static final String UPDATED_USER_PHONE = "0987654321";
     public static final String UPDATED_USER_WEBSITE = "https://updated.example.com";
-
-    // JSON schema paths
-    private static final String SCHEMA_BASE_PATH = "schemas/";
-    public static final String USER_SCHEMA_PATH = SCHEMA_BASE_PATH + "user-schema.json";
-    public static final String USER_CREATE_RESPONSE_SCHEMA_PATH = SCHEMA_BASE_PATH + "user-create-response-schema.json";
 }

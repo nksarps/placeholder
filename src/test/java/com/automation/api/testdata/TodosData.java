@@ -11,9 +11,4 @@ public class TodosData {
     // Updated todo test data
     public static final String UPDATED_TODO_TITLE = "Updated Todo Title";
     public static final boolean UPDATED_TODO_COMPLETED = true;
-
-    // JSON schema paths
-    private static final String SCHEMA_BASE_PATH = "schemas/";
-    public static final String TODO_SCHEMA_PATH = SCHEMA_BASE_PATH + "todo-schema.json";
-    public static final String TODO_CREATE_RESPONSE_SCHEMA_PATH = SCHEMA_BASE_PATH + "todo-create-response-schema.json";
 }
