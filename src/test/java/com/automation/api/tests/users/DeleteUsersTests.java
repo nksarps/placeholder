@@ -39,7 +39,6 @@ public class DeleteUsersTests extends SetUp {
 
         int statusCode = resp.statusCode();
 
-        assertTrue(statusCode == 404,
-                "Expected status 404 for invalid user deletion, got: " + statusCode);
+        assertEquals(404, statusCode, "Expected status 404 for invalid user deletion, got: " + statusCode);
     }
 }
