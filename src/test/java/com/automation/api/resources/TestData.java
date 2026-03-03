@@ -73,4 +73,13 @@ public final class TestData {
     public static final String UPDATED_USER_EMAIL = "updateduser@example.com";
     public static final String UPDATED_USER_PHONE = "0987654321";
     public static final String UPDATED_USER_WEBSITE = "https://updated.example.com";
+
+    // JSON schema paths
+    private static final String SCHEMA_BASE_PATH = "com/automation/api/resources/schemas/";
+    public static final String POST_SCHEMA_PATH = SCHEMA_BASE_PATH + "post-schema.json";
+    public static final String POST_CREATE_RESPONSE_SCHEMA_PATH = SCHEMA_BASE_PATH + "post-create-response-schema.json";
+    public static final String COMMENT_SCHEMA_PATH = SCHEMA_BASE_PATH + "comment-schema.json";
+    public static final String COMMENT_CREATE_RESPONSE_SCHEMA_PATH = SCHEMA_BASE_PATH + "comment-create-response-schema.json";
+    public static final String ALBUM_SCHEMA_PATH = SCHEMA_BASE_PATH + "album-schema.json";
+    public static final String ALBUM_CREATE_RESPONSE_SCHEMA_PATH = SCHEMA_BASE_PATH + "album-create-response-schema.json";
 }
