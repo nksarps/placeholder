@@ -37,26 +37,4 @@ public final class Endpoints {
     public static String userById(int id) {
         return USERS + "/" + id;
     }
-
-    // Query builders (simple string-based helpers)
-    public static String postsByUser(int userId) {
-        return POSTS + "?userId=" + userId;
-    }
-
-    public static String commentsByPost(int postId) {
-        return COMMENTS + "?postId=" + postId;
-    }
-
-    public static String albumsByUser(int userId) {
-        return ALBUMS + "?userId=" + userId;
-    }
-
-    public static String photosByAlbum(int albumId) {
-        return PHOTOS + "?albumId=" + albumId;
-    }
-
-    public static String todosByUser(int userId) {
-        return TODOS + "?userId=" + userId;
-    }
 }
-

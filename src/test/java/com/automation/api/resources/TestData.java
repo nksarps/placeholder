@@ -1,11 +1,12 @@
+
 package com.automation.api.resources;
+
+import com.automation.api.utils.RandomIdGenerator;
 
 /**
  * Centralized test data (IDs and other reusable parameters) for API tests.
  */
 public final class TestData {
-    private TestData() {}
-
     public static final int DEFAULT_USER_ID = RandomIdGenerator.getRandomUserId();
     public static final int DEFAULT_POST_ID = RandomIdGenerator.getRandomPostId();
     public static final int DEFAULT_COMMENT_POST_ID = RandomIdGenerator.getRandomPostId();
@@ -73,4 +74,3 @@ public final class TestData {
     public static final String UPDATED_USER_PHONE = "0987654321";
     public static final String UPDATED_USER_WEBSITE = "https://updated.example.com";
 }
-

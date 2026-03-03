@@ -56,10 +56,3 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 
 # Default command: Run tests
 CMD ["mvn", "clean", "test", "-Dallure.results.directory=/app/allure-results"]
-
-
-
-
-
-
-

@@ -1,4 +1,4 @@
-package com.automation.api.resources;
+package com.automation.api.utils;
 
 /**
  * Utility class to generate random IDs for testing purposes.
