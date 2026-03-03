@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +39,8 @@ public class GetAlbumsTests extends SetUp {
                 .statusCode(200)
                 .body("id", equalTo(TestData.DEFAULT_ALBUM_ID))
                 .body("userId", notNullValue())
-                .body("title", notNullValue());
+                .body("title", notNullValue())
+                .body(matchesJsonSchemaInClasspath(TestData.ALBUM_SCHEMA_PATH));
     }
 
     @Test

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,7 +34,8 @@ public class PostPostsTests extends SetUp {
                 .body("title", equalTo(TestData.POST_TITLE))
                 .body("body", equalTo(TestData.POST_BODY))
                 .body("userId", equalTo(TestData.POST_USER_ID))
-                .body("id", notNullValue());
+                .body("id", notNullValue())
+                .body(matchesJsonSchemaInClasspath(TestData.POST_CREATE_RESPONSE_SCHEMA_PATH));
     }
 
     @Test
