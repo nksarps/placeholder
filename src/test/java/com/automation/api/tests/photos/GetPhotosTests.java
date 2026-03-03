@@ -2,8 +2,9 @@ package com.automation.api.tests.photos;
 
 import com.automation.api.base.SetUp;
 import com.automation.api.config.ApiConfig;
+import com.automation.api.testdata.PhotosData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,10 +34,10 @@ public class GetPhotosTests extends SetUp {
         given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.photoById(TestData.DEFAULT_PHOTO_ID))
+                .get(Endpoints.photoById(PhotosData.DEFAULT_PHOTO_ID))
         .then()
                 .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_PHOTO_ID))
+                .body("id", equalTo(PhotosData.DEFAULT_PHOTO_ID))
                 .body("albumId", notNullValue())
                 .body("title", notNullValue())
                 .body("url", notNullValue())
@@ -48,13 +49,13 @@ public class GetPhotosTests extends SetUp {
     public void testGetPhotosByAlbumId() {
         given()
                 .spec(requestSpec)
-                .queryParam("albumId", TestData.DEFAULT_PHOTO_ALBUM_ID)
+                .queryParam("albumId", PhotosData.DEFAULT_PHOTO_ALBUM_ID)
         .when()
                 .get(Endpoints.PHOTOS)
         .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0))
-                .body("albumId", everyItem(equalTo(TestData.DEFAULT_PHOTO_ALBUM_ID)));
+                .body("albumId", everyItem(equalTo(PhotosData.DEFAULT_PHOTO_ALBUM_ID)));
     }
 
     @Test
@@ -63,7 +64,7 @@ public class GetPhotosTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.photoById(TestData.INVALID_ID))
+                .get(Endpoints.photoById(PhotosData.INVALID_ID))
         .then()
                 .extract()
                 .response();
@@ -80,7 +81,7 @@ public class GetPhotosTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.photoById(TestData.DEFAULT_PHOTO_ID))
+                .get(Endpoints.photoById(PhotosData.DEFAULT_PHOTO_ID))
         .then()
                 .statusCode(200)
                 .extract()

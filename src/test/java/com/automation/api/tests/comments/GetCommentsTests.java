@@ -2,8 +2,9 @@ package com.automation.api.tests.comments;
 
 import com.automation.api.base.SetUp;
 import com.automation.api.config.ApiConfig;
+import com.automation.api.testdata.CommentsData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,15 +49,15 @@ public class GetCommentsTests extends SetUp {
         given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.commentById(TestData.DEFAULT_COMMENT_ID))
+                .get(Endpoints.commentById(CommentsData.DEFAULT_COMMENT_ID))
         .then()
                 .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_COMMENT_ID))
+                .body("id", equalTo(CommentsData.DEFAULT_COMMENT_ID))
                 .body("postId", notNullValue())
                 .body("name", notNullValue())
                 .body("email", notNullValue())
                 .body("body", notNullValue())
-                .body(matchesJsonSchemaInClasspath(TestData.COMMENT_SCHEMA_PATH));
+                .body(matchesJsonSchemaInClasspath(CommentsData.COMMENT_SCHEMA_PATH));
     }
 
     @Test
@@ -64,13 +65,13 @@ public class GetCommentsTests extends SetUp {
     public void testGetCommentsByPostId() {
         given()
                 .spec(requestSpec)
-                .queryParam("postId", TestData.DEFAULT_COMMENT_POST_ID)
+                .queryParam("postId", CommentsData.DEFAULT_COMMENT_POST_ID)
         .when()
                 .get(Endpoints.COMMENTS)
         .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0))
-                .body("postId", everyItem(equalTo(TestData.DEFAULT_COMMENT_POST_ID)));
+                .body("postId", everyItem(equalTo(CommentsData.DEFAULT_COMMENT_POST_ID)));
     }
 
     @Test
@@ -79,7 +80,7 @@ public class GetCommentsTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.commentById(TestData.INVALID_ID))
+                .get(Endpoints.commentById(CommentsData.INVALID_ID))
         .then()
                 .extract()
                 .response();
@@ -96,7 +97,7 @@ public class GetCommentsTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.commentById(TestData.DEFAULT_COMMENT_ID))
+                .get(Endpoints.commentById(CommentsData.DEFAULT_COMMENT_ID))
         .then()
                 .statusCode(200)
                 .extract()

@@ -1,8 +1,9 @@
 package com.automation.api.tests.posts;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.PostsData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -23,19 +24,19 @@ public class PostPostsTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"title\": \"" + TestData.POST_TITLE + "\",\n" +
-                        "  \"body\": \"" + TestData.POST_BODY + "\",\n" +
-                        "  \"userId\": " + TestData.POST_USER_ID + "\n" +
+                        "  \"title\": \"" + PostsData.POST_TITLE + "\",\n" +
+                        "  \"body\": \"" + PostsData.POST_BODY + "\",\n" +
+                        "  \"userId\": " + PostsData.POST_USER_ID + "\n" +
                         "}")
         .when()
                 .post(Endpoints.POSTS)
         .then()
                 .statusCode(201)
-                .body("title", equalTo(TestData.POST_TITLE))
-                .body("body", equalTo(TestData.POST_BODY))
-                .body("userId", equalTo(TestData.POST_USER_ID))
+                .body("title", equalTo(PostsData.POST_TITLE))
+                .body("body", equalTo(PostsData.POST_BODY))
+                .body("userId", equalTo(PostsData.POST_USER_ID))
                 .body("id", notNullValue())
-                .body(matchesJsonSchemaInClasspath(TestData.POST_CREATE_RESPONSE_SCHEMA_PATH));
+                .body(matchesJsonSchemaInClasspath(PostsData.POST_CREATE_RESPONSE_SCHEMA_PATH));
     }
 
     @Test

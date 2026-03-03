@@ -1,8 +1,9 @@
 package com.automation.api.tests.users;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.UsersData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -22,19 +23,19 @@ public class PostUsersTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"username\": \"" + TestData.USER_NAME + "\",\n" +
-                        "  \"email\": \"" + TestData.USER_EMAIL + "\",\n" +
-                        "  \"phone\": \"" + TestData.USER_PHONE + "\",\n" +
-                        "  \"website\": \"" + TestData.USER_WEBSITE + "\"\n" +
+                        "  \"username\": \"" + UsersData.USER_NAME + "\",\n" +
+                        "  \"email\": \"" + UsersData.USER_EMAIL + "\",\n" +
+                        "  \"phone\": \"" + UsersData.USER_PHONE + "\",\n" +
+                        "  \"website\": \"" + UsersData.USER_WEBSITE + "\"\n" +
                         "}")
         .when()
                 .post(Endpoints.USERS)
         .then()
                 .statusCode(201)
-                .body("username", equalTo(TestData.USER_NAME))
-                .body("email", equalTo(TestData.USER_EMAIL))
-                .body("phone", equalTo(TestData.USER_PHONE))
-                .body("website", equalTo(TestData.USER_WEBSITE))
+                .body("username", equalTo(UsersData.USER_NAME))
+                .body("email", equalTo(UsersData.USER_EMAIL))
+                .body("phone", equalTo(UsersData.USER_PHONE))
+                .body("website", equalTo(UsersData.USER_WEBSITE))
                 .body("id", notNullValue());
     }
 

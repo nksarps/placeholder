@@ -2,8 +2,9 @@ package com.automation.api.tests.posts;
 
 import com.automation.api.base.SetUp;
 import com.automation.api.config.ApiConfig;
+import com.automation.api.testdata.PostsData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,14 +35,14 @@ public class GetPostsTests extends SetUp {
         given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.postById(TestData.DEFAULT_POST_ID))
+                .get(Endpoints.postById(PostsData.DEFAULT_POST_ID))
         .then()
                 .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_POST_ID))
+                .body("id", equalTo(PostsData.DEFAULT_POST_ID))
                 .body("userId", notNullValue())
                 .body("title", notNullValue())
                 .body("body", notNullValue())
-                .body(matchesJsonSchemaInClasspath(TestData.POST_SCHEMA_PATH));
+                .body(matchesJsonSchemaInClasspath(PostsData.POST_SCHEMA_PATH));
     }
 
     @Test
@@ -49,13 +50,13 @@ public class GetPostsTests extends SetUp {
     public void testGetPostsByUserId() {
         given()
                 .spec(requestSpec)
-                .queryParam("userId", TestData.DEFAULT_USER_ID)
+                .queryParam("userId", PostsData.POST_USER_ID)
         .when()
                 .get(Endpoints.POSTS)
         .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0))
-                .body("userId", everyItem(equalTo(TestData.DEFAULT_USER_ID)));
+                .body("userId", everyItem(equalTo(PostsData.POST_USER_ID)));
     }
 
     @Test
@@ -64,7 +65,7 @@ public class GetPostsTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.postById(TestData.INVALID_ID))
+                .get(Endpoints.postById(PostsData.INVALID_ID))
         .then()
                 .extract()
                 .response();
@@ -81,7 +82,7 @@ public class GetPostsTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.postById(TestData.DEFAULT_POST_ID))
+                .get(Endpoints.postById(PostsData.DEFAULT_POST_ID))
         .then()
                 .statusCode(200)
                 .extract()

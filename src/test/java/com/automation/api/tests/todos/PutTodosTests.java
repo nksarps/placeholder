@@ -1,8 +1,9 @@
 package com.automation.api.tests.todos;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.TodosData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -22,19 +23,19 @@ public class PutTodosTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"userId\": " + TestData.DEFAULT_TODO_USER_ID + ",\n" +
-                        "  \"id\": " + TestData.DEFAULT_TODO_ID + ",\n" +
-                        "  \"title\": \"" + TestData.UPDATED_TODO_TITLE + "\",\n" +
-                        "  \"completed\": " + TestData.UPDATED_TODO_COMPLETED + "\n" +
+                        "  \"userId\": " + TodosData.DEFAULT_TODO_USER_ID + ",\n" +
+                        "  \"id\": " + TodosData.DEFAULT_TODO_ID + ",\n" +
+                        "  \"title\": \"" + TodosData.UPDATED_TODO_TITLE + "\",\n" +
+                        "  \"completed\": " + TodosData.UPDATED_TODO_COMPLETED + "\n" +
                         "}")
         .when()
-                .put(Endpoints.todoById(TestData.DEFAULT_TODO_ID))
+                .put(Endpoints.todoById(TodosData.DEFAULT_TODO_ID))
         .then()
                 .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_TODO_ID))
-                .body("userId", equalTo(TestData.DEFAULT_TODO_USER_ID))
-                .body("title", equalTo(TestData.UPDATED_TODO_TITLE))
-                .body("completed", equalTo(TestData.UPDATED_TODO_COMPLETED));
+                .body("id", equalTo(TodosData.DEFAULT_TODO_ID))
+                .body("userId", equalTo(TodosData.DEFAULT_TODO_USER_ID))
+                .body("title", equalTo(TodosData.UPDATED_TODO_TITLE))
+                .body("completed", equalTo(TodosData.UPDATED_TODO_COMPLETED));
     }
 
     @Test
@@ -44,13 +45,13 @@ public class PutTodosTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"userId\": " + TestData.DEFAULT_TODO_USER_ID + ",\n" +
-                        "  \"id\": " + TestData.INVALID_ID + ",\n" +
-                        "  \"title\": \"" + TestData.UPDATED_TODO_TITLE + "\",\n" +
-                        "  \"completed\": " + TestData.UPDATED_TODO_COMPLETED + "\n" +
+                        "  \"userId\": " + TodosData.DEFAULT_TODO_USER_ID + ",\n" +
+                        "  \"id\": " + TodosData.INVALID_ID + ",\n" +
+                        "  \"title\": \"" + TodosData.UPDATED_TODO_TITLE + "\",\n" +
+                        "  \"completed\": " + TodosData.UPDATED_TODO_COMPLETED + "\n" +
                         "}")
         .when()
-                .put(Endpoints.todoById(TestData.INVALID_ID))
+                .put(Endpoints.todoById(TodosData.INVALID_ID))
         .then()
                 .extract()
                 .response();

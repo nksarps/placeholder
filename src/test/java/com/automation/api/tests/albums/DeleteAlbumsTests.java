@@ -1,11 +1,13 @@
 package com.automation.api.tests.albums;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.AlbumsData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -20,7 +22,7 @@ public class DeleteAlbumsTests extends SetUp {
         given()
                 .spec(requestSpec)
         .when()
-                .delete(Endpoints.albumById(TestData.DEFAULT_ALBUM_ID))
+                .delete(Endpoints.albumById(AlbumsData.DEFAULT_ALBUM_ID))
         .then()
                 .statusCode(anyOf(equalTo(200), equalTo(204)));
     }
@@ -31,7 +33,7 @@ public class DeleteAlbumsTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .delete(Endpoints.albumById(TestData.INVALID_ID))
+                .delete(Endpoints.albumById(AlbumsData.INVALID_ID))
         .then()
                 .extract()
                 .response(); // Extract the response to perform custom assertions

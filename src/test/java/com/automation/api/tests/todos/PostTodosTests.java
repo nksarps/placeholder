@@ -1,8 +1,9 @@
 package com.automation.api.tests.todos;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.TodosData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -22,17 +23,17 @@ public class PostTodosTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"userId\": " + TestData.DEFAULT_TODO_USER_ID + ",\n" +
-                        "  \"title\": \"" + TestData.TODO_TITLE + "\",\n" +
-                        "  \"completed\": " + TestData.TODO_COMPLETED + "\n" +
+                        "  \"userId\": " + TodosData.DEFAULT_TODO_USER_ID + ",\n" +
+                        "  \"title\": \"" + TodosData.TODO_TITLE + "\",\n" +
+                        "  \"completed\": " + TodosData.TODO_COMPLETED + "\n" +
                         "}")
         .when()
                 .post(Endpoints.TODOS)
         .then()
                 .statusCode(201)
-                .body("userId", equalTo(TestData.DEFAULT_TODO_USER_ID))
-                .body("title", equalTo(TestData.TODO_TITLE))
-                .body("completed", equalTo(TestData.TODO_COMPLETED))
+                .body("userId", equalTo(TodosData.DEFAULT_TODO_USER_ID))
+                .body("title", equalTo(TodosData.TODO_TITLE))
+                .body("completed", equalTo(TodosData.TODO_COMPLETED))
                 .body("id", notNullValue());
     }
 
@@ -43,8 +44,8 @@ public class PostTodosTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"title\": \"" + TestData.TODO_TITLE + "\",\n" +
-                        "  \"completed\": " + TestData.TODO_COMPLETED + "\n" +
+                        "  \"title\": \"" + TodosData.TODO_TITLE + "\",\n" +
+                        "  \"completed\": " + TodosData.TODO_COMPLETED + "\n" +
                         "}")
         .when()
                 .post(Endpoints.TODOS)

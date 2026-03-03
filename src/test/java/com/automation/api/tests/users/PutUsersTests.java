@@ -1,8 +1,9 @@
 package com.automation.api.tests.users;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.UsersData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -22,21 +23,21 @@ public class PutUsersTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"id\": " + TestData.DEFAULT_USER_ID + ",\n" +
-                        "  \"username\": \"" + TestData.UPDATED_USER_NAME + "\",\n" +
-                        "  \"email\": \"" + TestData.UPDATED_USER_EMAIL + "\",\n" +
-                        "  \"phone\": \"" + TestData.UPDATED_USER_PHONE + "\",\n" +
-                        "  \"website\": \"" + TestData.UPDATED_USER_WEBSITE + "\"\n" +
+                        "  \"id\": " + UsersData.DEFAULT_USER_ID + ",\n" +
+                        "  \"username\": \"" + UsersData.UPDATED_USER_NAME + "\",\n" +
+                        "  \"email\": \"" + UsersData.UPDATED_USER_EMAIL + "\",\n" +
+                        "  \"phone\": \"" + UsersData.UPDATED_USER_PHONE + "\",\n" +
+                        "  \"website\": \"" + UsersData.UPDATED_USER_WEBSITE + "\"\n" +
                         "}")
         .when()
-                .put(Endpoints.userById(TestData.DEFAULT_USER_ID))
+                .put(Endpoints.userById(UsersData.DEFAULT_USER_ID))
         .then()
                 .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_USER_ID))
-                .body("username", equalTo(TestData.UPDATED_USER_NAME))
-                .body("email", equalTo(TestData.UPDATED_USER_EMAIL))
-                .body("phone", equalTo(TestData.UPDATED_USER_PHONE))
-                .body("website", equalTo(TestData.UPDATED_USER_WEBSITE));
+                .body("id", equalTo(UsersData.DEFAULT_USER_ID))
+                .body("username", equalTo(UsersData.UPDATED_USER_NAME))
+                .body("email", equalTo(UsersData.UPDATED_USER_EMAIL))
+                .body("phone", equalTo(UsersData.UPDATED_USER_PHONE))
+                .body("website", equalTo(UsersData.UPDATED_USER_WEBSITE));
     }
 
     @Test
@@ -46,14 +47,14 @@ public class PutUsersTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"id\": " + TestData.INVALID_ID + ",\n" +
-                        "  \"username\": \"" + TestData.UPDATED_USER_NAME + "\",\n" +
-                        "  \"email\": \"" + TestData.UPDATED_USER_EMAIL + "\",\n" +
-                        "  \"phone\": \"" + TestData.UPDATED_USER_PHONE + "\",\n" +
-                        "  \"website\": \"" + TestData.UPDATED_USER_WEBSITE + "\"\n" +
+                        "  \"id\": " + UsersData.INVALID_ID + ",\n" +
+                        "  \"username\": \"" + UsersData.UPDATED_USER_NAME + "\",\n" +
+                        "  \"email\": \"" + UsersData.UPDATED_USER_EMAIL + "\",\n" +
+                        "  \"phone\": \"" + UsersData.UPDATED_USER_PHONE + "\",\n" +
+                        "  \"website\": \"" + UsersData.UPDATED_USER_WEBSITE + "\"\n" +
                         "}")
         .when()
-                .put(Endpoints.userById(TestData.INVALID_ID))
+                .put(Endpoints.userById(UsersData.INVALID_ID))
         .then()
                 .extract()
                 .response();

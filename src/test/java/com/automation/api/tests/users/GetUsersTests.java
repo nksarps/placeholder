@@ -2,8 +2,9 @@ package com.automation.api.tests.users;
 
 import com.automation.api.base.SetUp;
 import com.automation.api.config.ApiConfig;
+import com.automation.api.testdata.UsersData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,10 +34,10 @@ public class GetUsersTests extends SetUp {
         given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.userById(TestData.DEFAULT_USER_ID))
+                .get(Endpoints.userById(UsersData.DEFAULT_USER_ID))
         .then()
                 .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_USER_ID))
+                .body("id", equalTo(UsersData.DEFAULT_USER_ID))
                 .body("username", notNullValue())
                 .body("email", notNullValue())
                 .body("phone", notNullValue());
@@ -48,7 +49,7 @@ public class GetUsersTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.userById(TestData.INVALID_ID))
+                .get(Endpoints.userById(UsersData.INVALID_ID))
         .then()
                 .extract()
                 .response();
@@ -65,7 +66,7 @@ public class GetUsersTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.userById(TestData.DEFAULT_USER_ID))
+                .get(Endpoints.userById(UsersData.DEFAULT_USER_ID))
         .then()
                 .statusCode(200)
                 .extract()

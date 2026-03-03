@@ -1,8 +1,9 @@
 package com.automation.api.tests.photos;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.PhotosData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class DeletePhotosTests extends SetUp {
         given()
                 .spec(requestSpec)
         .when()
-                .delete(Endpoints.photoById(TestData.DEFAULT_PHOTO_ID))
+                .delete(Endpoints.photoById(PhotosData.DEFAULT_PHOTO_ID))
         .then()
                 .statusCode(anyOf(equalTo(200), equalTo(204)));
     }
@@ -31,7 +32,7 @@ public class DeletePhotosTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .delete(Endpoints.photoById(TestData.INVALID_ID))
+                .delete(Endpoints.photoById(PhotosData.INVALID_ID))
         .then()
                 .extract()
                 .response();

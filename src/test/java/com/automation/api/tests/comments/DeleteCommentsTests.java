@@ -1,8 +1,9 @@
 package com.automation.api.tests.comments;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.CommentsData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class DeleteCommentsTests extends SetUp {
         given()
                 .spec(requestSpec)
         .when()
-                .delete(Endpoints.commentById(TestData.DEFAULT_COMMENT_ID))
+                .delete(Endpoints.commentById(CommentsData.DEFAULT_COMMENT_ID))
         .then()
                 .statusCode(anyOf(equalTo(200), equalTo(204)));
     }
@@ -31,7 +32,7 @@ public class DeleteCommentsTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .delete(Endpoints.commentById(TestData.INVALID_ID))
+                .delete(Endpoints.commentById(CommentsData.INVALID_ID))
         .then()
                 .extract()
                 .response();

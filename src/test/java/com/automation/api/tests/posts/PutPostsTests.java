@@ -1,8 +1,9 @@
 package com.automation.api.tests.posts;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.PostsData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -22,19 +23,19 @@ public class PutPostsTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"id\": " + TestData.DEFAULT_POST_ID + ",\n" +
-                        "  \"title\": \"" + TestData.UPDATED_POST_TITLE + "\",\n" +
-                        "  \"body\": \"" + TestData.UPDATED_POST_BODY + "\",\n" +
-                        "  \"userId\": " + TestData.DEFAULT_USER_ID + "\n" +
+                        "  \"id\": " + PostsData.DEFAULT_POST_ID + ",\n" +
+                        "  \"title\": \"" + PostsData.UPDATED_POST_TITLE + "\",\n" +
+                        "  \"body\": \"" + PostsData.UPDATED_POST_BODY + "\",\n" +
+                        "  \"userId\": " + PostsData.POST_USER_ID + "\n" +
                         "}")
         .when()
-                .put(Endpoints.postById(TestData.DEFAULT_POST_ID))
+                .put(Endpoints.postById(PostsData.DEFAULT_POST_ID))
         .then()
                 .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_POST_ID))
-                .body("title", equalTo(TestData.UPDATED_POST_TITLE))
-                .body("body", equalTo(TestData.UPDATED_POST_BODY))
-                .body("userId", equalTo(TestData.DEFAULT_USER_ID));
+                .body("id", equalTo(PostsData.DEFAULT_POST_ID))
+                .body("title", equalTo(PostsData.UPDATED_POST_TITLE))
+                .body("body", equalTo(PostsData.UPDATED_POST_BODY))
+                .body("userId", equalTo(PostsData.POST_USER_ID));
     }
 
     @Test
@@ -44,13 +45,13 @@ public class PutPostsTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"id\": " + TestData.INVALID_ID + ",\n" +
-                        "  \"title\": \"" + TestData.UPDATED_POST_TITLE + "\",\n" +
-                        "  \"body\": \"" + TestData.UPDATED_POST_BODY + "\",\n" +
-                        "  \"userId\": " + TestData.DEFAULT_USER_ID + "\n" +
+                        "  \"id\": " + PostsData.INVALID_ID + ",\n" +
+                        "  \"title\": \"" + PostsData.UPDATED_POST_TITLE + "\",\n" +
+                        "  \"body\": \"" + PostsData.UPDATED_POST_BODY + "\",\n" +
+                        "  \"userId\": " + PostsData.POST_USER_ID + "\n" +
                         "}")
         .when()
-                .put(Endpoints.postById(TestData.INVALID_ID))
+                .put(Endpoints.postById(PostsData.INVALID_ID))
         .then()
                 .extract()
                 .response();

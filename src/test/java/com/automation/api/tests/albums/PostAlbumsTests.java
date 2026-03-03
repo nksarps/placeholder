@@ -1,8 +1,9 @@
 package com.automation.api.tests.albums;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.AlbumsData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -23,17 +24,17 @@ public class PostAlbumsTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"userId\": " + TestData.DEFAULT_USER_ID + ",\n" +
-                        "  \"title\": \"" + TestData.ALBUM_TITLE + "\"\n" +
+                        "  \"userId\": " + AlbumsData.DEFAULT_ALBUM_ID + ",\n" +
+                        "  \"title\": \"" + AlbumsData.ALBUM_TITLE + "\"\n" +
                         "}")
         .when()
                 .post(Endpoints.ALBUMS)
         .then()
                 .statusCode(201)
-                .body("userId", equalTo(TestData.DEFAULT_USER_ID))
-                .body("title", equalTo(TestData.ALBUM_TITLE))
+                .body("userId", equalTo(AlbumsData.DEFAULT_ALBUM_ID))
+                .body("title", equalTo(AlbumsData.ALBUM_TITLE))
                 .body("id", notNullValue())
-                .body(matchesJsonSchemaInClasspath(TestData.ALBUM_CREATE_RESPONSE_SCHEMA_PATH));
+                .body(matchesJsonSchemaInClasspath(AlbumsData.ALBUM_CREATE_RESPONSE_SCHEMA_PATH));
     }
 
     @Test

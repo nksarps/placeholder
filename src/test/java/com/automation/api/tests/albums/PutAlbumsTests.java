@@ -1,8 +1,9 @@
 package com.automation.api.tests.albums;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.AlbumsData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -22,17 +23,17 @@ public class PutAlbumsTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"userId\": " + TestData.DEFAULT_USER_ID + ",\n" +
-                        "  \"id\": " + TestData.DEFAULT_ALBUM_ID + ",\n" +
-                        "  \"title\": \"" + TestData.UPDATED_ALBUM_TITLE + "\"\n" +
+                        "  \"userId\": " + AlbumsData.DEFAULT_ALBUM_ID + ",\n" +
+                        "  \"id\": " + AlbumsData.DEFAULT_ALBUM_ID + ",\n" +
+                        "  \"title\": \"" + AlbumsData.UPDATED_ALBUM_TITLE + "\"\n" +
                         "}")
         .when()
-                .put(Endpoints.albumById(TestData.DEFAULT_ALBUM_ID))
+                .put(Endpoints.albumById(AlbumsData.DEFAULT_ALBUM_ID))
         .then()
                 .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_ALBUM_ID))
-                .body("userId", equalTo(TestData.DEFAULT_USER_ID))
-                .body("title", equalTo(TestData.UPDATED_ALBUM_TITLE));
+                .body("id", equalTo(AlbumsData.DEFAULT_ALBUM_ID))
+                .body("userId", equalTo(AlbumsData.DEFAULT_ALBUM_ID))
+                .body("title", equalTo(AlbumsData.UPDATED_ALBUM_TITLE));
     }
 
     @Test
@@ -42,12 +43,12 @@ public class PutAlbumsTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"userId\": " + TestData.DEFAULT_USER_ID + ",\n" +
-                        "  \"id\": " + TestData.INVALID_ID + ",\n" +
-                        "  \"title\": \"" + TestData.UPDATED_ALBUM_TITLE + "\"\n" +
+                        "  \"userId\": " + AlbumsData.DEFAULT_ALBUM_ID + ",\n" +
+                        "  \"id\": " + AlbumsData.INVALID_ID + ",\n" +
+                        "  \"title\": \"" + AlbumsData.UPDATED_ALBUM_TITLE + "\"\n" +
                         "}")
         .when()
-                .put(Endpoints.albumById(TestData.INVALID_ID))
+                .put(Endpoints.albumById(AlbumsData.INVALID_ID))
         .then()
                 .extract()
                 .response(); // Extract the response to perform custom assertions

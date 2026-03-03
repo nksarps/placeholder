@@ -2,8 +2,9 @@ package com.automation.api.tests.todos;
 
 import com.automation.api.base.SetUp;
 import com.automation.api.config.ApiConfig;
+import com.automation.api.testdata.TodosData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,10 +48,10 @@ public class GetTodosTests extends SetUp {
         given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.todoById(TestData.DEFAULT_TODO_ID))
+                .get(Endpoints.todoById(TodosData.DEFAULT_TODO_ID))
         .then()
                 .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_TODO_ID))
+                .body("id", equalTo(TodosData.DEFAULT_TODO_ID))
                 .body("userId", notNullValue())
                 .body("title", notNullValue())
                 .body("completed", notNullValue());
@@ -61,13 +62,13 @@ public class GetTodosTests extends SetUp {
     public void testGetTodosByUserId() {
         given()
                 .spec(requestSpec)
-                .queryParam("userId", TestData.DEFAULT_TODO_USER_ID)
+                .queryParam("userId", TodosData.DEFAULT_TODO_USER_ID)
         .when()
                 .get(Endpoints.TODOS)
         .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0))
-                .body("userId", everyItem(equalTo(TestData.DEFAULT_TODO_USER_ID)));
+                .body("userId", everyItem(equalTo(TodosData.DEFAULT_TODO_USER_ID)));
     }
 
     @Test
@@ -76,7 +77,7 @@ public class GetTodosTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.todoById(TestData.INVALID_ID))
+                .get(Endpoints.todoById(TodosData.INVALID_ID))
         .then()
                 .extract()
                 .response();
@@ -93,7 +94,7 @@ public class GetTodosTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.todoById(TestData.DEFAULT_TODO_ID))
+                .get(Endpoints.todoById(TodosData.DEFAULT_TODO_ID))
         .then()
                 .statusCode(200)
                 .extract()

@@ -1,8 +1,9 @@
 package com.automation.api.tests.photos;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.PhotosData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -22,19 +23,19 @@ public class PostPhotosTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"albumId\": " + TestData.DEFAULT_PHOTO_ALBUM_ID + ",\n" +
-                        "  \"title\": \"" + TestData.PHOTO_TITLE + "\",\n" +
-                        "  \"url\": \"" + TestData.PHOTO_URL + "\",\n" +
-                        "  \"thumbnailUrl\": \"" + TestData.PHOTO_THUMBNAIL_URL + "\"\n" +
+                        "  \"albumId\": " + PhotosData.DEFAULT_PHOTO_ALBUM_ID + ",\n" +
+                        "  \"title\": \"" + PhotosData.PHOTO_TITLE + "\",\n" +
+                        "  \"url\": \"" + PhotosData.PHOTO_URL + "\",\n" +
+                        "  \"thumbnailUrl\": \"" + PhotosData.PHOTO_THUMBNAIL_URL + "\"\n" +
                         "}")
         .when()
                 .post(Endpoints.PHOTOS)
         .then()
                 .statusCode(201)
-                .body("albumId", equalTo(TestData.DEFAULT_PHOTO_ALBUM_ID))
-                .body("title", equalTo(TestData.PHOTO_TITLE))
-                .body("url", equalTo(TestData.PHOTO_URL))
-                .body("thumbnailUrl", equalTo(TestData.PHOTO_THUMBNAIL_URL))
+                .body("albumId", equalTo(PhotosData.DEFAULT_PHOTO_ALBUM_ID))
+                .body("title", equalTo(PhotosData.PHOTO_TITLE))
+                .body("url", equalTo(PhotosData.PHOTO_URL))
+                .body("thumbnailUrl", equalTo(PhotosData.PHOTO_THUMBNAIL_URL))
                 .body("id", notNullValue());
     }
 
@@ -45,9 +46,9 @@ public class PostPhotosTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"albumId\": " + TestData.DEFAULT_PHOTO_ALBUM_ID + ",\n" +
-                        "  \"title\": \"" + TestData.PHOTO_TITLE + "\",\n" +
-                        "  \"url\": \"" + TestData.PHOTO_URL + "\"\n" +
+                        "  \"albumId\": " + PhotosData.DEFAULT_PHOTO_ALBUM_ID + ",\n" +
+                        "  \"title\": \"" + PhotosData.PHOTO_TITLE + "\",\n" +
+                        "  \"url\": \"" + PhotosData.PHOTO_URL + "\"\n" +
                         "}")
         .when()
                 .post(Endpoints.PHOTOS)

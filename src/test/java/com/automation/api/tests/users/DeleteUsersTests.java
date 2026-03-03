@@ -1,8 +1,9 @@
 package com.automation.api.tests.users;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.UsersData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class DeleteUsersTests extends SetUp {
         given()
                 .spec(requestSpec)
         .when()
-                .delete(Endpoints.userById(TestData.DEFAULT_USER_ID))
+                .delete(Endpoints.userById(UsersData.DEFAULT_USER_ID))
         .then()
                 .statusCode(anyOf(equalTo(200), equalTo(204)));
     }
@@ -31,7 +32,7 @@ public class DeleteUsersTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .delete(Endpoints.userById(TestData.INVALID_ID))
+                .delete(Endpoints.userById(UsersData.INVALID_ID))
         .then()
                 .extract()
                 .response();

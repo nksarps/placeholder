@@ -1,8 +1,9 @@
 package com.automation.api.tests.posts;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.PostsData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class DeletePostsTests extends SetUp {
         given()
                 .spec(requestSpec)
         .when()
-                .delete(Endpoints.postById(TestData.DEFAULT_POST_ID))
+                .delete(Endpoints.postById(PostsData.DEFAULT_POST_ID))
         .then()
                 .statusCode(anyOf(equalTo(200), equalTo(204)));
     }
@@ -31,7 +32,7 @@ public class DeletePostsTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .delete(Endpoints.postById(TestData.INVALID_ID))
+                .delete(Endpoints.postById(PostsData.INVALID_ID))
         .then()
                 .extract()
                 .response();

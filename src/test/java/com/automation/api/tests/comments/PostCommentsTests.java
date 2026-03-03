@@ -1,8 +1,9 @@
 package com.automation.api.tests.comments;
 
 import com.automation.api.base.SetUp;
+import com.automation.api.testdata.CommentsData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -23,21 +24,21 @@ public class PostCommentsTests extends SetUp {
                 .spec(requestSpec)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"postId\": " + TestData.DEFAULT_POST_ID + ",\n" +
-                        "  \"name\": \"" + TestData.COMMENT_NAME + "\",\n" +
-                        "  \"email\": \"" + TestData.COMMENT_EMAIL + "\",\n" +
-                        "  \"body\": \"" + TestData.COMMENT_BODY + "\"\n" +
+                        "  \"postId\": " + CommentsData.DEFAULT_COMMENT_POST_ID + ",\n" +
+                        "  \"name\": \"" + CommentsData.COMMENT_NAME + "\",\n" +
+                        "  \"email\": \"" + CommentsData.COMMENT_EMAIL + "\",\n" +
+                        "  \"body\": \"" + CommentsData.COMMENT_BODY + "\"\n" +
                         "}")
         .when()
                 .post(Endpoints.COMMENTS)
         .then()
                 .statusCode(201)
-                .body("postId", equalTo(TestData.DEFAULT_POST_ID))
-                .body("name", equalTo(TestData.COMMENT_NAME))
-                .body("email", equalTo(TestData.COMMENT_EMAIL))
-                .body("body", equalTo(TestData.COMMENT_BODY))
+                .body("postId", equalTo(CommentsData.DEFAULT_COMMENT_POST_ID))
+                .body("name", equalTo(CommentsData.COMMENT_NAME))
+                .body("email", equalTo(CommentsData.COMMENT_EMAIL))
+                .body("body", equalTo(CommentsData.COMMENT_BODY))
                 .body("id", notNullValue())
-                .body(matchesJsonSchemaInClasspath(TestData.COMMENT_CREATE_RESPONSE_SCHEMA_PATH));
+                .body(matchesJsonSchemaInClasspath(CommentsData.COMMENT_CREATE_RESPONSE_SCHEMA_PATH));
     }
 
     @Test

@@ -2,8 +2,9 @@ package com.automation.api.tests.albums;
 
 import com.automation.api.base.SetUp;
 import com.automation.api.config.ApiConfig;
+import com.automation.api.testdata.AlbumsData;
 import com.automation.api.utils.Endpoints;
-import com.automation.api.resources.TestData;
+
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,13 +35,13 @@ public class GetAlbumsTests extends SetUp {
         given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.albumById(TestData.DEFAULT_ALBUM_ID))
+                .get(Endpoints.albumById(AlbumsData.DEFAULT_ALBUM_ID))
         .then()
                 .statusCode(200)
-                .body("id", equalTo(TestData.DEFAULT_ALBUM_ID))
+                .body("id", equalTo(AlbumsData.DEFAULT_ALBUM_ID))
                 .body("userId", notNullValue())
                 .body("title", notNullValue())
-                .body(matchesJsonSchemaInClasspath(TestData.ALBUM_SCHEMA_PATH));
+                .body(matchesJsonSchemaInClasspath(AlbumsData.ALBUM_SCHEMA_PATH));
     }
 
     @Test
@@ -48,13 +49,13 @@ public class GetAlbumsTests extends SetUp {
     public void testGetAlbumsByUserId() {
         given()
                 .spec(requestSpec)
-                .queryParam("userId", TestData.DEFAULT_USER_ID)
+                .queryParam("userId", AlbumsData.DEFAULT_ALBUM_ID)
         .when()
                 .get(Endpoints.ALBUMS)
         .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0))
-                .body("userId", everyItem(equalTo(TestData.DEFAULT_USER_ID)));
+                .body("userId", everyItem(equalTo(AlbumsData.DEFAULT_ALBUM_ID)));
     }
 
     @Test
@@ -63,7 +64,7 @@ public class GetAlbumsTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.albumById(TestData.INVALID_ID))
+                .get(Endpoints.albumById(AlbumsData.INVALID_ID))
         .then()
                 .extract() 
                 .response(); // Extract the response to perform custom assertions
@@ -80,7 +81,7 @@ public class GetAlbumsTests extends SetUp {
         Response resp = given()
                 .spec(requestSpec)
         .when()
-                .get(Endpoints.albumById(TestData.DEFAULT_ALBUM_ID))
+                .get(Endpoints.albumById(AlbumsData.DEFAULT_ALBUM_ID))
         .then()
                 .statusCode(200)
                 .extract()
